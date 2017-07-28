@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbl.dao.LondonGoldDao">
+    <select id="selectGoldInTime" parameterType="com.lbl.entity.QueryGoldEntity" resultType="com.lbl.entity.GoldEntity">
+        select *
+        from LondonGold
+        where unix_timestamp(sj) BETWEEN unix_timestamp(date_sub(#{queryTime}, interval 1 month)) and unix_timestamp(#{queryTime})
+              and zxj between #{lowPrice} and #{highPrice}
+        order by sj
+    </select>
+
+    <select id="selectGoldByTime" parameterType="date" resultType="com.lbl.entity.GoldEntity">
+        select *
+        from LondonGold
+        where unix_timestamp(sj) BETWEEN unix_timestamp(date_sub(#{queryTime}, interval 20 second)) and unix_timestamp(#{queryTime})
+        order by sj
+    </select>
+</mapper>
+

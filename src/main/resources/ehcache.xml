@@ -1,0 +1,17 @@
+<ehcache name="stock" >
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"/>
+    <cache
+            name="stockCache"
+            maxElementsOnDisk="20000"
+            maxElementsInMemory="2000"
+            eternal="true"
+            overflowToDisk="true"
+            diskPersistent="true"
+           />
+</ehcache>   
