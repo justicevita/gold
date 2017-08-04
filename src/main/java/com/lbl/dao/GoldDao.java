@@ -25,4 +25,5 @@ public interface GoldDao {
     Float getAvgPriceInTimeRegion(@Param("regionList") List<NearRegionEntity> nearRegionList);
 
     GoldEntity getLatestGold();
+
 }

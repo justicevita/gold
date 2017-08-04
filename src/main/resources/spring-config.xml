@@ -53,6 +53,7 @@
     <!-- 使用注解配置事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"
                           proxy-target-class="true" />
+
     <!--启动缓存-->
     <cache:annotation-driven cache-manager="cacheManager" />
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->

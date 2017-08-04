@@ -13,4 +13,6 @@ public interface LondonGoldDao {
     ArrayList<GoldEntity> selectGoldInTime(QueryGoldEntity queryGoldEntity);
 
     ArrayList<GoldEntity> selectGoldByTime(Date queryTime);
+
+    GoldEntity selectLatestLondonGold();
 }

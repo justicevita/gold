@@ -55,7 +55,7 @@ public class GoldService {
      * @return
      */
     public ArrayList<GoldEntity> getGoldNearPrice(Date time){
-        GoldEntity goldEntity=getGold(time);
+        GoldEntity goldEntity=getLatestLondonGold();
         if(goldEntity==null){
             System.out.println("未找到对应金价");
             return new ArrayList<>();
@@ -72,6 +72,9 @@ public class GoldService {
                 ||bigRangeData.size()==0
                 ||nearRegionList==null
                 ||nearRegionList.size()==0){
+
+
+
             return 0;
         }
 
@@ -104,6 +107,7 @@ public class GoldService {
                 nearRegionList.add(new NearRegionEntity(startGoldTime,goldList.get(i).getSj()));
             }
         }
+
         return nearRegionList;
     }
 
@@ -115,9 +119,11 @@ public class GoldService {
      */
     public  ArrayList<GoldEntity> getBigRangeDate(List<GoldEntity> goldList, ArrayList<GoldEntity> existRangeData){
         if(goldList==null||goldList.size()==0){
+
             return new ArrayList<>();
         }
         if(existRangeData==null||existRangeData.size()==0){
+
             return goldDao.selectGoldInTimeRegion(goldList.get(0).getSj(),goldList.get(goldList.size()-1).getSj());
         }
         return (ArrayList<GoldEntity>) existRangeData.stream().filter(a->a.getSj().getTime()>=goldList.get(0).getSj().getTime()).collect(Collectors.toList());
@@ -159,5 +165,13 @@ public class GoldService {
      */
     public GoldEntity getLatestGold(){
         return goldDao.getLatestGold();
+    }
+
+    /**
+     * 获取最新的世界黄金价格
+     * @return
+     */
+    public GoldEntity getLatestLondonGold(){
+        return londonGoldDao.selectLatestLondonGold();
     }
 }

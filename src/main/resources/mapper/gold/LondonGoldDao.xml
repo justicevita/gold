@@ -15,5 +15,11 @@
         where unix_timestamp(sj) BETWEEN unix_timestamp(date_sub(#{queryTime}, interval 20 second)) and unix_timestamp(#{queryTime})
         order by sj
     </select>
+    <select id="selectLatestLondonGold" resultType="com.lbl.entity.GoldEntity">
+        select *
+        from LondonGold
+        order by sj DESC
+        limit 1
+    </select>
 </mapper>
 

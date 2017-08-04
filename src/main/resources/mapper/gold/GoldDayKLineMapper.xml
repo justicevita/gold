@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbl.dao.GoldDayKLineDao">
+    <select id="selectLatestDayKLine" parameterType="int" resultType="com.lbl.entity.GoldDayKLineEntity">
+        select *
+        from golddaykline
+        where gold_type=#{gold_type}
+        order by gold_time desc
+        limit 1
+    </select>
+
+    <insert id="insertDayKLine" parameterType="com.lbl.entity.GoldDayKLineEntity" useGeneratedKeys="true" keyProperty="id">
+        insert
+        into golddaykline(gold_time,gold_open,gold_close,gold_high,gold_low,gold_type)
+        values(#{gold_time},#{gold_open},#{gold_close},#{gold_high},#{gold_low},#{gold_type})
+    </insert>
+
+    <select id="selectDayKLineInTimeRegion"  resultType="com.lbl.entity.GoldDayKLineEntity">
+        select *
+        from golddaykline
+        where
+        gold_type=#{gold_type}
+        and
+        unix_timestamp(gold_time)
+        BETWEEN unix_timestamp(#{startTime})
+        and unix_timestamp(#{endTime})
+        order by gold_time
+    </select>
+</mapper>
+

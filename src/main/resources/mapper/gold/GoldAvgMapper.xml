@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lbl.dao.GoldAvgDao">
+    <select id="selectLatestGoldAvg" resultType="com.lbl.entity.GoldAvgEntity">
+        select *
+        from goldavg
+        where gold_type=#{gold_type} and avg_type=#{avg_type}
+        order by gold_time desc
+        limit 1
+
+    </select>
+
+    <insert id="insertGoldAvg" parameterType="com.lbl.entity.GoldAvgEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT ignore
+        into goldavg(gold_time,ten_avg,twenty_avg,thirty_avg,avg_type,gold_type)
+        values(#{gold_time},#{ten_avg},#{twenty_avg},#{thirty_avg},#{avg_type},#{gold_type})
+    </insert>
+
+    <insert id="insertGoldAvgList" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        INSERT ignore
+        into goldavg(gold_time,ten_avg,twenty_avg,thirty_avg,avg_type,gold_type)
+        VALUES
+        <foreach collection="list" item="item" separator="," index="index">
+            (#{item.gold_time},#{item.ten_avg},#{item.twenty_avg},#{item.thirty_avg},#{item.avg_type},#{item.gold_type})
+        </foreach>
+    </insert>
+
+    <select id="selectGoldAvgListInTimeRegion" resultType="com.lbl.entity.GoldAvgEntity">
+        select *
+        from goldavg
+        where
+        avg_type=#{avg_type} and gold_type=#{gold_type}
+        and
+        unix_timestamp(gold_time)
+        BETWEEN unix_timestamp(#{startTime})
+        and unix_timestamp(#{endTime})
+        order by gold_time
+    </select>
+</mapper>
+

@@ -15,4 +15,8 @@ public class ResultEntity {
     private float dayAvg;
 
     private float rate;
+
+    private float domesticPrice;
+
+    private float worldPrice;
 }
